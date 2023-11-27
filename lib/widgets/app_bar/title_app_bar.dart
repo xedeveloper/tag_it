@@ -21,7 +21,7 @@ class _TitleAppBarState extends State<TitleAppBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 80, left: 30, right: 30),
+      padding: EdgeInsets.only(top: 120, left: 30, right: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

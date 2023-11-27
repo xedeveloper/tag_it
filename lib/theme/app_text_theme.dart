@@ -6,7 +6,7 @@ class AppTextTheme {
   static TextStyle get headerTextTheme => TextStyle(
         fontFamily: FontsConstants.FONT_FAMILY_BRAND,
         fontWeight: FontWeight.w600,
-        fontSize: 40,
+        fontSize: 35,
       );
 
   static TextStyle get hintTextTheme => TextStyle(
@@ -14,5 +14,13 @@ class AppTextTheme {
         fontWeight: FontWeight.w400,
         color: disabledGrey,
         fontSize: 15,
+      );
+
+  static TextStyle get inputTextStyle => hintTextTheme.copyWith(
+        color: abyssBlack,
+        fontWeight: FontWeight.w500,
+      );
+  static TextStyle get body => inputTextStyle.copyWith(
+        fontSize: 18,
       );
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/annotations.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:tag_it/core/constants/images.dart';
 import 'package:tag_it/core/constants/strings.dart';
-import 'package:tag_it/mixins/base_page_theme_mixin.dart';
-import 'package:tag_it/theme/app_text_theme.dart';
+import 'package:tag_it/mixins/base_page_layout_mixin.dart';
+
 import 'package:tag_it/theme/app_theme.dart';
+import 'package:tag_it/widgets/item_card/item_card_widget.dart';
 import 'package:tag_it/widgets/padding/app_standard_padding.dart';
+import 'package:tag_it/widgets/text_fields/search_text_field.dart';
 
 @RoutePage()
 class DashboardPage extends StatefulWidget {
@@ -16,7 +16,8 @@ class DashboardPage extends StatefulWidget {
   State<DashboardPage> createState() => _DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> with BasePageThemeMixin {
+class _DashboardPageState extends State<DashboardPage>
+    with BasePageLayoutMixin {
   @override
   String get title => Strings.myTags;
 
@@ -24,37 +25,39 @@ class _DashboardPageState extends State<DashboardPage> with BasePageThemeMixin {
   Widget body(BuildContext context) {
     return AppStandardPaddng(
       top: 50,
+      bottom: 0,
       child: Container(
         color: paperWhite,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: paperWhite,
-                  borderRadius: BorderRadius.circular(25),
-                  border: Border.all(color: disabledGrey),
-                ),
-                height: 50,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 10),
-                      child: SvgPicture.asset(
-                        Images.svgSearch,
-                        height: 20,
-                      ),
-                    ),
-                    Text(
-                      Strings.whatAreYouLooking,
-                      style: AppTextTheme.hintTextTheme,
-                    ),
-                  ],
-                ),
+        child: Column(
+          children: [
+            SearchTextField(
+              hintText: Strings.whatAreYouLooking,
+            ),
+            SizedBox(height: 20),
+            Expanded(
+              child: Container(
+                child: _buildTagsGridView(context),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildTagsGridView(BuildContext context) {
+    return Container(
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 16 / 20,
+        ),
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return ItemCardWidget(
+            title: "Title: $index",
+          );
+        },
       ),
     );
   }
