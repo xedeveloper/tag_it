@@ -44,16 +44,19 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
                 (index, iconName) => MapEntry(
                   index,
                   GestureDetector(
-                    child: SvgPicture.asset(
-                      iconName,
-                      height: 24,
-                      colorFilter: ColorFilter.mode(
-                        _selectedIndex == index ? abyssBlack : disabledGrey,
-                        BlendMode.srcATop,
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      child: SvgPicture.asset(
+                        iconName,
+                        height: 24,
+                        colorFilter: ColorFilter.mode(
+                          _selectedIndex == index ? abyssBlack : disabledGrey,
+                          BlendMode.srcATop,
+                        ),
                       ),
                     ),
                     onTap: () {
-                      HapticFeedback.lightImpact();
+                      HapticFeedback.selectionClick();
                       widget.onPageSelection(index);
                       setState(() {
                         _selectedIndex = index;
