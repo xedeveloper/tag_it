@@ -16,6 +16,11 @@ class AppTextTheme {
         fontSize: 15,
       );
 
+  static TextStyle get errorInputTheme => hintTextTheme.copyWith(
+        color: errorRed,
+        fontSize: 12,
+      );
+
   static TextStyle get inputTextStyle => hintTextTheme.copyWith(
         color: abyssBlack,
         fontWeight: FontWeight.w500,

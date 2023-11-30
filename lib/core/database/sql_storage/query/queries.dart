@@ -4,5 +4,5 @@ class Queries {
   static const String tagItStorageTable = "tagitStorage";
 
   static const createStorageTableQuery =
-      "CREATE TABLE $tagItStorageTable (Id INT, name TEXT, location TEXT, description TEXT, image BLOB)";
+      "CREATE TABLE $tagItStorageTable (Id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, location TEXT, description TEXT,whereTag TEXT, base64Image TEXT)";
 }

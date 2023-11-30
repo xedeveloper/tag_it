@@ -16,4 +16,6 @@ abstract class SQLManager {
     required Map<String, dynamic> data,
     required String tableName,
   });
+
+  Future<List<Map<String, dynamic>>> fetchItems({required String tableName});
 }

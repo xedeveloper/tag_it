@@ -16,7 +16,11 @@ class LocalSQLManager implements SQLManager {
       Queries.databaseName,
       version: 1,
       onCreate: (Database database, int version) async {
-        await database.execute(Queries.createStorageTableQuery);
+        try {
+          await database.execute(Queries.createStorageTableQuery);
+        } catch (e) {
+          print("|- DB Error: $e");
+        }
       },
     );
   }
@@ -65,5 +69,13 @@ class LocalSQLManager implements SQLManager {
     } catch (e) {
       return Future.error(e);
     }
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> fetchItems({
+    required String tableName,
+  }) async {
+    List<Map<String, dynamic>> _queryValues = await _database!.query(tableName);
+    return _queryValues;
   }
 }

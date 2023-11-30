@@ -5,7 +5,7 @@ import 'package:tag_it/theme/app_theme.dart';
 
 class RadioPills extends StatefulWidget {
   final List<String> pillTitles;
-  final Function(int index) onPillSelection;
+  final Function(String value) onPillSelection;
 
   const RadioPills({
     required this.pillTitles,
@@ -53,7 +53,7 @@ class _RadioPillsState extends State<RadioPills> {
                       ),
                       onTap: () {
                         HapticFeedback.selectionClick();
-                        widget.onPillSelection(index);
+                        widget.onPillSelection(title);
                         setState(() {
                           _selectedIndex = index;
                         });

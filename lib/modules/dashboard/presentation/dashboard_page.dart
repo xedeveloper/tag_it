@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/annotations.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tag_it/core/constants/images.dart';
 import 'package:tag_it/core/constants/strings.dart';
 import 'package:tag_it/mixins/base_page_layout_mixin.dart';
+import 'package:tag_it/modules/add_item/models/tag_items_model.dart';
+import 'package:tag_it/modules/dashboard/cubit/get_items_bloc.dart';
+import 'package:tag_it/modules/dashboard/cubit/state/get_items_state.dart';
+import 'package:tag_it/theme/app_text_theme.dart';
 
 import 'package:tag_it/theme/app_theme.dart';
 import 'package:tag_it/widgets/item_card/item_card_widget.dart';
@@ -18,8 +24,14 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage>
     with BasePageLayoutMixin {
+  GetItemsBloc _getItemsBloc = GetItemsBloc();
   @override
   String get title => Strings.myTags;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget body(BuildContext context) {
@@ -36,7 +48,27 @@ class _DashboardPageState extends State<DashboardPage>
             SizedBox(height: 20),
             Expanded(
               child: Container(
-                child: _buildTagsGridView(context),
+                child: ListenableBuilder(
+                  listenable: _getItemsBloc..getTagItemsLocally(),
+                  builder: (context, _) {
+                    GetItemsState? state = _getItemsBloc.state;
+
+                    if (state == null) {
+                      return _buildTagsGridView(
+                        context,
+                        [],
+                      );
+                    }
+                    return state.maybeWhen(
+                      () => _buildTagsGridView(
+                        context,
+                        [],
+                      ),
+                      loaded: (tags) => _buildTagsGridView(context, tags),
+                      orElse: () => _buildTagsGridView(context, []),
+                    );
+                  },
+                ),
               ),
             ),
           ],
@@ -45,20 +77,36 @@ class _DashboardPageState extends State<DashboardPage>
     );
   }
 
-  Widget _buildTagsGridView(BuildContext context) {
+  Widget _buildTagsGridView(BuildContext context, List<TagItemsModel> tags) {
     return Container(
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 16 / 20,
-        ),
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return ItemCardWidget(
-            title: "Title: $index",
-          );
-        },
-      ),
+      child: tags.isEmpty
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    Images.svgErrorDog,
+                    height: 300,
+                  ),
+                  Text(
+                    Strings.nothingToSee,
+                    style: AppTextTheme.body,
+                  ),
+                ],
+              ),
+            )
+          : GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 16 / 20,
+              ),
+              itemCount: tags.length,
+              itemBuilder: (context, index) {
+                return ItemCardWidget(
+                  tagItem: tags[index],
+                );
+              },
+            ),
     );
   }
 }

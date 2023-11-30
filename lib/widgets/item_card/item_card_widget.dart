@@ -1,11 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:tag_it/modules/add_item/models/tag_items_model.dart';
 import 'package:tag_it/theme/app_text_theme.dart';
 import 'package:tag_it/theme/app_theme.dart';
 
 class ItemCardWidget extends StatelessWidget {
-  final String title;
+  final TagItemsModel tagItem;
   const ItemCardWidget({
-    required this.title,
+    required this.tagItem,
     super.key,
   });
 
@@ -24,7 +27,12 @@ class ItemCardWidget extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              color: paperWhite,
+              child: Image.memory(
+                base64Decode(
+                  tagItem.base64Image,
+                ),
+                fit: BoxFit.fitWidth,
+              ),
             ),
           ),
           Container(
@@ -36,7 +44,7 @@ class ItemCardWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  tagItem.name,
                   style: AppTextTheme.body,
                 ),
               ],

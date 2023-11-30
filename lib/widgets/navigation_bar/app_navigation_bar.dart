@@ -6,8 +6,10 @@ import 'package:tag_it/theme/app_theme.dart';
 
 class AppNavigationBar extends StatefulWidget {
   final Function(int index) onPageSelection;
-  const AppNavigationBar({
+  int currentIndex;
+  AppNavigationBar({
     required this.onPageSelection,
+    this.currentIndex = 0,
     super.key,
   });
 
@@ -16,14 +18,13 @@ class AppNavigationBar extends StatefulWidget {
 }
 
 class _AppNavigationBarState extends State<AppNavigationBar> {
-  int _selectedIndex = 0;
-
   List<String> _icons = [
     Images.svgHome,
     Images.svgAddTag,
     Images.svgLocationPin,
     Images.svgSettings,
   ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +51,9 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
                         iconName,
                         height: 24,
                         colorFilter: ColorFilter.mode(
-                          _selectedIndex == index ? abyssBlack : disabledGrey,
+                          widget.currentIndex == index
+                              ? abyssBlack
+                              : disabledGrey,
                           BlendMode.srcATop,
                         ),
                       ),
@@ -59,7 +62,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
                       HapticFeedback.selectionClick();
                       widget.onPageSelection(index);
                       setState(() {
-                        _selectedIndex = index;
+                        widget.currentIndex = index;
                       });
                     },
                   ),

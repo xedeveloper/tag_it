@@ -6,6 +6,7 @@ const Color secondaryBlack = Color(0xFF191919);
 const Color tagOrange = Color(0xFFFF7A00);
 const Color disabledGrey = Color(0xFFB0B0B0);
 const Color backgroundGrey = Color(0xFFF5F5F5);
+const Color errorRed = Colors.red;
 
 BoxShadow lightTopShadow = BoxShadow(
   color: Colors.black.withOpacity(0.25),

@@ -35,7 +35,7 @@ class _AppButtonState extends State<AppButton> {
           ),
           onTap: () {
             HapticFeedback.selectionClick();
-            widget.onTap;
+            widget.onTap();
           },
         ),
       ),
