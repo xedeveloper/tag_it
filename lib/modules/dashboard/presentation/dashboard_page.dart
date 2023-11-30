@@ -35,7 +35,7 @@ class _DashboardPageState extends State<DashboardPage>
 
   @override
   Widget body(BuildContext context) {
-    return AppStandardPaddng(
+    return AppStandardPadding(
       top: 50,
       bottom: 0,
       child: Container(

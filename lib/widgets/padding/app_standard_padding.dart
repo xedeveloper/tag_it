@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AppStandardPaddng extends StatelessWidget {
+class AppStandardPadding extends StatelessWidget {
   final double left;
   final double right;
   final double top;
   final double bottom;
   final Widget child;
 
-  AppStandardPaddng({
+  AppStandardPadding({
     required this.child,
     this.left = 30.0,
     this.right = 30.0,

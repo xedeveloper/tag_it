@@ -16,11 +16,7 @@ class LocalSQLManager implements SQLManager {
       Queries.databaseName,
       version: 1,
       onCreate: (Database database, int version) async {
-        try {
-          await database.execute(Queries.createStorageTableQuery);
-        } catch (e) {
-          print("|- DB Error: $e");
-        }
+        await database.execute(Queries.createStorageTableQuery);
       },
     );
   }

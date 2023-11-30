@@ -6,7 +6,7 @@ import 'package:tag_it/theme/app_theme.dart';
 
 class AppNavigationBar extends StatefulWidget {
   final Function(int index) onPageSelection;
-  int currentIndex;
+  final int currentIndex;
   AppNavigationBar({
     required this.onPageSelection,
     this.currentIndex = 0,
@@ -24,6 +24,13 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
     Images.svgLocationPin,
     Images.svgSettings,
   ];
+
+  int currentIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = widget.currentIndex;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +69,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
                       HapticFeedback.selectionClick();
                       widget.onPageSelection(index);
                       setState(() {
-                        widget.currentIndex = index;
+                        currentIndex = index;
                       });
                     },
                   ),
