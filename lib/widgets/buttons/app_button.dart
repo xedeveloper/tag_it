@@ -6,9 +6,11 @@ import 'package:tag_it/theme/app_theme.dart';
 class AppButton extends StatefulWidget {
   final String title;
   final Function() onTap;
+  final bool isOutlined;
   const AppButton({
     required this.title,
     required this.onTap,
+    this.isOutlined = false,
     super.key,
   });
 
@@ -22,15 +24,17 @@ class _AppButtonState extends State<AppButton> {
     return SizedBox(
       height: 50,
       child: Material(
-        color: secondaryBlack,
+        color: widget.isOutlined ? paperWhite : secondaryBlack,
         borderRadius: BorderRadius.circular(25),
         child: InkWell(
           borderRadius: BorderRadius.circular(25),
-          splashColor: abyssBlack,
+          splashColor: widget.isOutlined ? backgroundGrey : abyssBlack,
           child: Center(
             child: Text(
               widget.title,
-              style: AppTextTheme.body.copyWith(color: paperWhite),
+              style: AppTextTheme.body.copyWith(
+                color: widget.isOutlined ? secondaryBlack : paperWhite,
+              ),
             ),
           ),
           onTap: () {

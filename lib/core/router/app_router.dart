@@ -1,8 +1,12 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:tag_it/modules/add_item/models/tag_items_model.dart';
 import 'package:tag_it/modules/dashboard/presentation/dashboard_page.dart';
 import 'package:tag_it/modules/add_item/presentation/add_tag_page.dart';
 import 'package:tag_it/modules/location/presentation/location_page.dart';
 import 'package:tag_it/modules/settings/presentation/settings_page.dart';
+import 'package:tag_it/modules/update_item/presentation/update_tag_page.dart';
+
 import 'package:tag_it/modules/home/home_page.dart';
 part 'app_router.gr.dart';
 
@@ -31,6 +35,10 @@ class AppRouter extends _$AppRouter {
               page: SettingsRoute.page,
             ),
           ],
+        ),
+        AutoRoute(
+          path: '/dashboard/update',
+          page: UpdateTagRoute.page,
         ),
       ];
 }

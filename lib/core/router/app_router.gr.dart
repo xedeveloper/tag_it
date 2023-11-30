@@ -45,6 +45,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const SettingsPage(),
       );
     },
+    UpdateTagRoute.name: (routeData) {
+      final args = routeData.argsAs<UpdateTagRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: UpdateTagPage(
+          tag: args.tag,
+          key: args.key,
+        ),
+      );
+    },
   };
 }
 
@@ -116,4 +126,42 @@ class SettingsRoute extends PageRouteInfo<void> {
   static const String name = 'SettingsRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [UpdateTagPage]
+class UpdateTagRoute extends PageRouteInfo<UpdateTagRouteArgs> {
+  UpdateTagRoute({
+    required TagItemsModel tag,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          UpdateTagRoute.name,
+          args: UpdateTagRouteArgs(
+            tag: tag,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'UpdateTagRoute';
+
+  static const PageInfo<UpdateTagRouteArgs> page =
+      PageInfo<UpdateTagRouteArgs>(name);
+}
+
+class UpdateTagRouteArgs {
+  const UpdateTagRouteArgs({
+    required this.tag,
+    this.key,
+  });
+
+  final TagItemsModel tag;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'UpdateTagRouteArgs{tag: $tag, key: $key}';
+  }
 }

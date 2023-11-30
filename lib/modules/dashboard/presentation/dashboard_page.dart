@@ -104,6 +104,9 @@ class _DashboardPageState extends State<DashboardPage>
               itemBuilder: (context, index) {
                 return ItemCardWidget(
                   tagItem: tags[index],
+                  handlePostUpdateFallback: () {
+                    _getItemsBloc.getTagItemsLocally();
+                  },
                 );
               },
             ),

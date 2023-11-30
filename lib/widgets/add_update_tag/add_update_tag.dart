@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:tag_it/core/constants/strings.dart';
 import 'package:tag_it/core/helpers/camera/camera_handler.dart';
 import 'package:tag_it/core/helpers/text_validators.dart';
+import 'package:tag_it/core/injection/injection.dart';
+import 'package:tag_it/core/router/app_router.dart';
 import 'package:tag_it/modules/add_item/models/tag_items_model.dart';
 import 'package:tag_it/theme/app_text_theme.dart';
 import 'package:tag_it/theme/app_theme.dart';
@@ -13,9 +15,11 @@ import 'package:tag_it/widgets/pills/radio_pills.dart';
 import 'package:tag_it/widgets/text_fields/app_input_text_field.dart';
 
 class AddUpdateTag extends StatefulWidget {
+  final TagItemsModel? updateModel;
   final void Function(TagItemsModel request) onSaveClick;
   const AddUpdateTag({
     required this.onSaveClick,
+    this.updateModel,
     super.key,
   });
 
@@ -33,6 +37,19 @@ class _AddUpdateTagState extends State<AddUpdateTag> {
 
   String _selectedWhereTag = Strings.onBody;
   XFile? _capturedImage;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.updateModel != null) {
+      _nameController.text = widget.updateModel!.name;
+      _locationController.text = widget.updateModel!.location;
+      _descriptionController.text = widget.updateModel!.description;
+
+      _capturedImage =
+          XFile.fromData(base64Decode(widget.updateModel!.base64Image));
+    }
+  }
 
   @override
   void dispose() {
@@ -102,6 +119,18 @@ class _AddUpdateTagState extends State<AddUpdateTag> {
           ),
           SizedBox(height: 30),
           _buildButton(context),
+          (widget.updateModel != null)
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 18),
+                  child: AppButton(
+                    title: Strings.globalCancel,
+                    isOutlined: true,
+                    onTap: () {
+                      getIt<AppRouter>().pop();
+                    },
+                  ),
+                )
+              : Container(),
         ],
       ),
     );

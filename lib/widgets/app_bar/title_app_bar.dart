@@ -5,8 +5,10 @@ import 'package:tag_it/theme/app_text_theme.dart';
 
 class TitleAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
+  final bool shouldShowBackButton;
   const TitleAppBar({
     required this.title,
+    this.shouldShowBackButton = false,
     super.key,
   });
 
@@ -21,13 +23,19 @@ class _TitleAppBarState extends State<TitleAppBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 120, left: 30, right: 30),
+      padding: EdgeInsets.only(
+        top: 115,
+        left: 30,
+        right: 30,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            widget.title,
-            style: AppTextTheme.headerTextTheme,
+          Expanded(
+            child: Text(
+              widget.title,
+              style: AppTextTheme.headerTextTheme,
+            ),
           ),
           GestureDetector(
             child: SvgPicture.asset(
