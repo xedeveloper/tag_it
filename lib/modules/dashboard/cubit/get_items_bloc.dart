@@ -26,4 +26,17 @@ class GetItemsBloc extends ReactiveBloc<GetItemsState> {
       emit(GetItemsState.failure());
     }
   }
+
+  void deleteItem(TagItemsModel tag) async {
+    try {
+      await getIt<LocalSQLManager>().deleteItem(
+        id: tag.Id ?? 0,
+        data: tag.toJson(),
+        tableName: Queries.tagItStorageTable,
+      );
+      getTagItemsLocally();
+    } catch (e) {
+      emit(GetItemsState.failure());
+    }
+  }
 }

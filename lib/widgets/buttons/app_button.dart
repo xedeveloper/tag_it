@@ -24,10 +24,10 @@ class _AppButtonState extends State<AppButton> {
     return SizedBox(
       height: 50,
       child: Material(
-        color: widget.isOutlined ? paperWhite : secondaryBlack,
-        borderRadius: BorderRadius.circular(25),
+        color: widget.isOutlined ? paperWhite : abyssBlack,
+        borderRadius: BorderRadius.circular(8),
         child: InkWell(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(8),
           splashColor: widget.isOutlined ? backgroundGrey : abyssBlack,
           child: Center(
             child: Text(

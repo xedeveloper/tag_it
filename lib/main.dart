@@ -32,6 +32,7 @@ class _TagItMaterialAppState extends State<TagItMaterialApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      color: Colors.white,
       debugShowCheckedModeBanner: false,
       routerConfig: getIt<AppRouter>().config(),
     );

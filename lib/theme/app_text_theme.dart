@@ -26,6 +26,6 @@ class AppTextTheme {
         fontWeight: FontWeight.w500,
       );
   static TextStyle get body => inputTextStyle.copyWith(
-        fontSize: 18,
+        fontSize: 16,
       );
 }

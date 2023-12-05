@@ -7,8 +7,10 @@ import 'package:tag_it/theme/app_theme.dart';
 
 class SearchTextField extends StatefulWidget {
   final String hintText;
+  final void Function(String)? onChanged;
   const SearchTextField({
     required this.hintText,
+    this.onChanged,
     super.key,
   });
 
@@ -43,6 +45,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
                 hintStyle: AppTextTheme.hintTextTheme,
               ),
               style: AppTextTheme.inputTextStyle,
+              onChanged: widget.onChanged,
             ),
           ),
           SizedBox(width: 10),

@@ -6,10 +6,12 @@ import 'package:tag_it/theme/app_theme.dart';
 class RadioPills extends StatefulWidget {
   final List<String> pillTitles;
   final Function(String value) onPillSelection;
+  final int currentIndex;
 
-  const RadioPills({
+  RadioPills({
     required this.pillTitles,
     required this.onPillSelection,
+    this.currentIndex = 0,
     super.key,
   });
 
@@ -18,6 +20,12 @@ class RadioPills extends StatefulWidget {
 }
 
 class _RadioPillsState extends State<RadioPills> {
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.currentIndex;
+  }
+
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -44,7 +52,7 @@ class _RadioPillsState extends State<RadioPills> {
                         child: Text(
                           title,
                           style: AppTextTheme.body.copyWith(
-                            fontSize: 17,
+                            fontSize: 14,
                             color: _selectedIndex == index
                                 ? paperWhite
                                 : abyssBlack,

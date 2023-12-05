@@ -35,6 +35,7 @@ class _AddUpdateTagState extends State<AddUpdateTag> {
   TextEditingController _descriptionController = TextEditingController();
   TextEditingController _locationController = TextEditingController();
 
+  List<String> _pillTitles = [Strings.onBody, Strings.inHouse, Strings.docs];
   String _selectedWhereTag = Strings.onBody;
   XFile? _capturedImage;
 
@@ -105,7 +106,9 @@ class _AddUpdateTagState extends State<AddUpdateTag> {
           ),
           SizedBox(height: 20),
           RadioPills(
-            pillTitles: [Strings.onBody, Strings.inHouse, Strings.docs],
+            pillTitles: _pillTitles,
+            currentIndex: _pillTitles
+                .indexOf(widget.updateModel?.whereTag ?? _pillTitles.first),
             onPillSelection: (title) {
               setState(() {
                 _selectedWhereTag = title;
@@ -140,7 +143,11 @@ class _AddUpdateTagState extends State<AddUpdateTag> {
     return AnimatedContainer(
       duration: Duration(milliseconds: 300),
       curve: Curves.easeOut,
-      color: _capturedImage != null ? Colors.transparent : paperWhite,
+      decoration: BoxDecoration(
+        color: _capturedImage != null ? Colors.transparent : paperWhite,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      clipBehavior: Clip.hardEdge,
       height: _capturedImage != null
           ? 400
           : _cameraController != null
@@ -156,19 +163,22 @@ class _AddUpdateTagState extends State<AddUpdateTag> {
                         await CameraHandler.getcameraController();
                     setState(() {});
                   },
-                  child: Placeholder(
-                    color: disabledGrey,
-                    strokeWidth: 1.5,
-                    child: Center(
-                      child: Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: paperWhite.withOpacity(0.9),
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Icon(
-                          Icons.camera_alt_outlined,
-                          size: 50,
+                  child: Padding(
+                    padding: EdgeInsets.all(7),
+                    child: Placeholder(
+                      color: disabledGrey,
+                      strokeWidth: 1.5,
+                      child: Center(
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: paperWhite.withOpacity(0.9),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Icon(
+                            Icons.camera_alt_outlined,
+                            size: 50,
+                          ),
                         ),
                       ),
                     ),
@@ -199,6 +209,7 @@ class _AddUpdateTagState extends State<AddUpdateTag> {
                         _capturedImage = null;
                         _cameraController =
                             await CameraHandler.getcameraController();
+
                         setState(() {});
                       },
                       child: Container(
@@ -230,8 +241,8 @@ class _AddUpdateTagState extends State<AddUpdateTag> {
           children: [
             GestureDetector(
               onTap: () async {
+                await _cameraController?.setFlashMode(FlashMode.off);
                 _capturedImage = await _cameraController!.takePicture();
-
                 setState(() {});
                 Future.delayed(Duration(milliseconds: 400), () async {
                   await _cameraController!.dispose();

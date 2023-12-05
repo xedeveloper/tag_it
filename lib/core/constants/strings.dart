@@ -1,6 +1,7 @@
 class Strings {
   static const String globalSave = "Save";
   static const String globalCancel = "Cancel";
+  static const String delete = "Delete";
 
   static const String myTags = "My Tags";
   static const String addTags = "Add Tags";
